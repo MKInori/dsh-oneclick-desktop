@@ -1,5 +1,5 @@
 # ============================================================================
-#  dsh-chat-panel -- Windows window manager
+#  dsh-oneclick-desktop -- Windows window manager
 #
 #  Modes:
 #    open    : shrink DSH to the left 2/3, open chat.deepseek.com in the right
@@ -66,7 +66,7 @@ $ErrorActionPreference = 'Continue'
 # This plugin drives Windows windows through Win32, so anything else gets a
 # clear message instead of a confusing failure somewhere in the middle.
 if ($env:OS -ne 'Windows_NT') {
-  Write-Host "error: dsh-chat-panel arranges windows with Win32 APIs and only runs on Windows (detected OS '$env:OS')."
+  Write-Host "error: dsh-oneclick-desktop arranges windows with Win32 APIs and only runs on Windows (detected OS '$env:OS')."
   exit 1
 }
 
@@ -75,7 +75,7 @@ if ($env:OS -ne 'Windows_NT') {
 # baked in. $env:DSH_HOME wins when a deployment sets it.
 $dshHome = if ($env:DSH_HOME) { $env:DSH_HOME } else { Join-Path $env:USERPROFILE '.dsh' }
 if (-not $ProfileDir) { $ProfileDir = Join-Path $dshHome 'edge-deepseek-profile' }
-if (-not $StateFile)  { $StateFile  = Join-Path $dshHome 'dsh-chat-panel.state' }
+if (-not $StateFile)  { $StateFile  = Join-Path $dshHome 'dsh-oneclick-desktop.state' }
 
 function Find-Browser {
   # First Chromium browser that exists, most preferred first. Edge is preferred

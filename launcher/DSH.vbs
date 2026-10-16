@@ -7,7 +7,7 @@
 '    - it keeps a tray icon with Open / Restart / Settings / Exit
 '
 '  Paths are derived from this script's own location, so the whole
-'  dsh-desktop-kit folder can be moved or copied without editing anything.
+'  dsh-oneclick-desktop folder can be moved or copied without editing anything.
 '
 '  Only ASCII text: wscript reads .vbs as ANSI, so non-ASCII
 '  here would come out as mojibake.

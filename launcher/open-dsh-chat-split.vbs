@@ -8,9 +8,9 @@
 '
 '  Writes nothing to DSH. Pure ASCII (wscript reads .vbs as ANSI).
 '
-'  The window manager it launches lives in the plugin, which DSH itself loads
-'  from its own plugin directory -- so the path is resolved relative to the
-'  kit (launchers\..\plugin\...), with the installed location as a fallback.
+'  The window manager it launches lives in the plugin. The path is resolved
+'  relative to this script only -- first the kit layout, then a copy sitting
+'  beside it -- so nothing here depends on where anyone installed anything.
 ' ============================================================
 Option Explicit
 
@@ -18,12 +18,15 @@ Dim sh, fso, HERE, KIT, SCRIPT, FALLBACK
 Set sh  = CreateObject("WScript.Shell")
 Set fso = CreateObject("Scripting.FileSystemObject")
 
-HERE     = fso.GetParentFolderName(WScript.ScriptFullName)   ' ...\dsh-desktop-kit\launchers
-KIT      = fso.GetParentFolderName(HERE)                     ' ...\dsh-desktop-kit
+HERE     = fso.GetParentFolderName(WScript.ScriptFullName)
+KIT      = fso.GetParentFolderName(HERE)
 SCRIPT   = fso.BuildPath(KIT, "plugin\lib\window.ps1")
-FALLBACK = "C:\Users\Aesier\.dsh\plugins\dsh-chat-panel\lib\window.ps1"
 
-If Not fso.FileExists(SCRIPT) Then SCRIPT = FALLBACK
+' Two layouts reach this script, and neither needs a hard-coded path:
+'   * straight out of the kit   -> <kit>\plugin\lib\window.ps1
+'   * installed by desktop.ps1  -> <stable>\launcher\window.ps1, a copy
+'     dropped next to this script so a package update cannot break it.
+If Not fso.FileExists(SCRIPT) Then SCRIPT = fso.BuildPath(HERE, "window.ps1")
 
 If Not fso.FileExists(SCRIPT) Then
   MsgBox "Window manager not found:" & vbCrLf & SCRIPT, 16, "DSH split"

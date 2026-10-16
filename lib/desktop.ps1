@@ -36,7 +36,7 @@ if ($env:OS -ne 'Windows_NT') {
 if (-not $PackageRoot) { $PackageRoot = Split-Path $PSScriptRoot -Parent }
 $src = Join-Path $PackageRoot 'launcher'
 $dshHome = if ($env:DSH_HOME) { $env:DSH_HOME } else { Join-Path $env:USERPROFILE '.dsh' }
-$dest = Join-Path $dshHome 'dsh-desktop-kit\launcher'
+$dest = Join-Path $dshHome 'dsh-oneclick-desktop\launcher'
 $lnk = Join-Path ([Environment]::GetFolderPath('Desktop')) 'DSH.lnk'
 $protoKey = 'HKCU:\Software\Classes\dshsplit'
 
@@ -75,8 +75,12 @@ switch ($Mode) {
   'install' {
     if (-not (Test-Path $src)) { Write-Host ("error: launcher assets missing at " + $src); exit 1 }
     if (-not (Test-Path $dest)) { [void](New-Item -ItemType Directory -Path $dest -Force) }
-    foreach ($f in @('DSH.vbs', 'DSH-Tray.ps1', 'open-dsh-chat-split.vbs', 'dsh.ico')) {
+    # window.ps1 rides along so open-dsh-chat-split.vbs finds the window
+    # manager next to itself; an installed launcher then survives a plugin
+    # update, which replaces the whole package folder.
+    foreach ($f in @('DSH.vbs', 'DSH-Tray.ps1', 'open-dsh-chat-split.vbs', 'dsh.ico', 'window.ps1')) {
       $from = Join-Path $src $f
+      if ($f -eq 'window.ps1') { $from = Join-Path (Split-Path $src -Parent) 'lib\window.ps1' }
       if (Test-Path $from) { Copy-Item -LiteralPath $from -Destination (Join-Path $dest $f) -Force }
     }
     Write-Host ("assets:   " + $dest)
@@ -89,9 +93,9 @@ switch ($Mode) {
   'remove' {
     if (Test-Path $lnk) { Remove-Item -LiteralPath $lnk -Force; Write-Host ("removed " + $lnk) }
     if (Test-Path $protoKey) { Remove-Item -Path $protoKey -Recurse -Force; Write-Host "removed dshsplit: registration" }
-    if (Test-Path (Join-Path $dshHome 'dsh-desktop-kit')) {
-      Remove-Item -LiteralPath (Join-Path $dshHome 'dsh-desktop-kit') -Recurse -Force
-      Write-Host ("removed " + (Join-Path $dshHome 'dsh-desktop-kit'))
+    if (Test-Path (Join-Path $dshHome 'dsh-oneclick-desktop')) {
+      Remove-Item -LiteralPath (Join-Path $dshHome 'dsh-oneclick-desktop') -Recurse -Force
+      Write-Host ("removed " + (Join-Path $dshHome 'dsh-oneclick-desktop'))
     }
   }
 

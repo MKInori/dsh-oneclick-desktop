@@ -1,6 +1,6 @@
 {
   "name": "dsh-oneclick-desktop",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Windows: turns DSH into a desktop app. A one-click launcher and tray controller, plus a sidebar button that splits DSH and chat.deepseek.com side by side with its own taskbar button.",
   "type": "module",
   "main": "lib/index.js",

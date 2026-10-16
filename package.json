@@ -1,0 +1,58 @@
+{
+  "name": "dsh-chat-panel",
+  "version": "0.1.0",
+  "description": "Windows: a sidebar button that splits DSH and a chat.deepseek.com window side by side, with Ctrl+Alt+D to tuck the chat pane away and one shared taskbar button.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "DEVELOPING.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "os": [
+    "win32"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/dsh": "^0.2.0-rc.2"
+  },
+  "dsh": {
+    "engine": "dsh >=0.2.0-rc.2",
+    "client": {
+      "platform": "web"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek",
+    "chat",
+    "split",
+    "windows"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MKInori/dsh-chat-panel.git"
+  },
+  "homepage": "https://github.com/MKInori/dsh-chat-panel#readme",
+  "bugs": {
+    "url": "https://github.com/MKInori/dsh-chat-panel/issues"
+  },
+  "author": "MKInori"
+}

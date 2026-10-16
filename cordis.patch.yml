@@ -1,5 +1,5 @@
-# dsh-desktop-kit bundle layer: mount the local plugin into the web roster.
+# dsh-oneclick-desktop bundle layer: mount the local plugin into the web roster.
 # `name` is resolved through the profile's node_modules (a link: dependency).
 - insert:
-    - id: dsh-desktop-kit
-      name: dsh-desktop-kit
+    - id: dsh-oneclick-desktop
+      name: dsh-oneclick-desktop

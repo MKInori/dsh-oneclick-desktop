@@ -1,6 +1,6 @@
 {
-  "name": "dsh-desktop-kit",
-  "version": "0.2.1",
+  "name": "dsh-oneclick-desktop",
+  "version": "0.3.0",
   "description": "Windows: turns DSH into a desktop app. A one-click launcher and tray controller, plus a sidebar button that splits DSH and chat.deepseek.com side by side with its own taskbar button.",
   "type": "module",
   "main": "lib/index.js",
@@ -53,11 +53,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MKInori/dsh-desktop-kit.git"
+    "url": "git+https://github.com/MKInori/dsh-oneclick-desktop.git"
   },
-  "homepage": "https://github.com/MKInori/dsh-desktop-kit#readme",
+  "homepage": "https://github.com/MKInori/dsh-oneclick-desktop#readme",
   "bugs": {
-    "url": "https://github.com/MKInori/dsh-desktop-kit/issues"
+    "url": "https://github.com/MKInori/dsh-oneclick-desktop/issues"
   },
   "author": "MKInori"
 }

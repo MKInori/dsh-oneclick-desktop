@@ -1,4 +1,4 @@
-# dsh-desktop-kit
+# dsh-oneclick-desktop
 
 把 DSH 变成一个**桌面应用**。三个东西，装一次全都有：
 
@@ -28,14 +28,14 @@
 在 DSH 侧边栏的「插件」页点 **Add plugin**，填入：
 
 ```
-dsh-desktop-kit
+dsh-oneclick-desktop
 ```
 
 或者：
 
 ```bash
-dsh plugin --profile web add dsh-desktop-kit
-dsh plugin --profile web add github:MKInori/dsh-desktop-kit
+dsh plugin --profile web add dsh-oneclick-desktop
+dsh plugin --profile web add github:MKInori/dsh-oneclick-desktop
 ```
 
 装完**刷新页面**（`Ctrl+Shift+R`）。桌面集成在插件加载时自动完成，见下。
@@ -49,7 +49,7 @@ dsh plugin --profile web add github:MKInori/dsh-desktop-kit
 
 | 动作 | 位置 |
 |---|---|
-| 复制启动器脚本到**稳定目录** | `~/.dsh/dsh-desktop-kit/launcher/` |
+| 复制启动器脚本到**稳定目录** | `~/.dsh/dsh-oneclick-desktop/launcher/` |
 | 创建桌面快捷方式 | `桌面\DSH.lnk` → 指向上面那个目录 |
 | 注册 URL 协议 | `HKCU\Software\Classes\dshsplit` |
 
@@ -59,7 +59,7 @@ dsh plugin --profile web add github:MKInori/dsh-desktop-kit
 **撤销全部三样**：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File ~\.dsh\plugins\dsh-desktop-kit\plugin\lib\desktop.ps1 -Mode remove
+powershell -ExecutionPolicy Bypass -File ~\.dsh\plugins\dsh-oneclick-desktop\plugin\lib\desktop.ps1 -Mode remove
 ```
 
 **只看当前状态**：把 `-Mode remove` 换成 `-Mode status`。
@@ -118,7 +118,7 @@ DSH 的工具审批**不会沙箱化插件代码**。宿主半具体会：
 | 任务栏又出现两个图标 | 归组是在每次打开时施加的；关掉 chat 重开一次 |
 | 按钮不见了 | DSH 侧边栏改版可能让 DOM 挂载点失效；刷新页面，或到「插件」页确认插件是启用状态 |
 | `Ctrl+Alt+D` 不生效 | 被别的软件占了，看日志确认 |
-| 托盘不出现 | 确认 `~/.dsh/dsh-desktop-kit/launcher/DSH-Tray.ps1` 存在；用 `-Mode install` 重装 |
+| 托盘不出现 | 确认 `~/.dsh/dsh-oneclick-desktop/launcher/DSH-Tray.ps1` 存在；用 `-Mode install` 重装 |
 | 提示找不到浏览器 | 装了 Edge 或 Chrome 吗？都在标准位置的话应该能自动找到 |
 
 **一个已知行为**：插件**不干预你自己的窗口操作**。如果你手动把 DSH 最大化或拖到别处，
@@ -127,13 +127,13 @@ DSH 的工具审批**不会沙箱化插件代码**。宿主半具体会：
 ## 卸载
 
 ```bash
-dsh plugin --profile web remove dsh-desktop-kit
+dsh plugin --profile web remove dsh-oneclick-desktop
 ```
 
 然后清掉桌面集成和残留：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File ~\.dsh\plugins\dsh-desktop-kit\plugin\lib\desktop.ps1 -Mode remove
+powershell -ExecutionPolicy Bypass -File ~\.dsh\plugins\dsh-oneclick-desktop\plugin\lib\desktop.ps1 -Mode remove
 ```
 
 `~/.dsh/edge-deepseek-profile/`（chat 用的独立浏览器 profile）和

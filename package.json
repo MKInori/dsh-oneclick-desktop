@@ -1,6 +1,6 @@
 {
   "name": "dsh-desktop-kit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Windows: turns DSH into a desktop app. A one-click launcher and tray controller, plus a sidebar button that splits DSH and chat.deepseek.com side by side with its own taskbar button.",
   "type": "module",
   "main": "lib/index.js",

@@ -101,7 +101,7 @@ DSH 的工具审批**不会沙箱化插件代码**。宿主半具体会：
 | **操作窗口** | 通过 `user32.dll` 移动 / 缩放 / 显示隐藏窗口，并写入窗口的 `AppUserModelID` 属性以合并任务栏按钮 |
 | **打开浏览器** | 用 Edge/Chrome 打开 `chat.deepseek.com`，使用**独立 profile**（`~/.dsh/edge-deepseek-profile`），与你的日常浏览器配置隔离 |
 | **启动 DSH 服务** | 托盘在服务未运行时执行 `dsh web --no-open` |
-| **读写本地文件** | 往 `~/.dsh/` 写状态文件 `dsh-chat-panel.state` 和日志 `dsh-chat-panel.log` |
+| **读写本地文件** | 往 `~/.dsh/` 写状态文件 `dsh-oneclick-desktop.state` 和日志 `dsh-oneclick-desktop.log` |
 | **监听热键** | 通过 `RegisterHotKey` 占用全局 `Ctrl+Alt+D`（**只在 chat 开着时**，关闭后立即释放） |
 
 **它不会**：读取或上传你的任何文件内容、访问除 `chat.deepseek.com` 以外的网络地址、触碰你的日常浏览器 profile、修改 DSH 安装目录。
@@ -113,7 +113,7 @@ DSH 的工具审批**不会沙箱化插件代码**。宿主半具体会：
 | 现象 | 原因 / 处理 |
 |---|---|
 | 桌面图标没出现 | 跑一次 `lib\desktop.ps1 -Mode status` 看三项状态；`-Mode install` 可重跑（幂等） |
-| 点了按钮没反应 | 看 `~/.dsh/dsh-chat-panel.log`，宿主把每次请求和脚本输出都写进去了 |
+| 点了按钮没反应 | 看 `~/.dsh/dsh-oneclick-desktop.log`，宿主把每次请求和脚本输出都写进去了 |
 | 分屏四周有缝 | 窗口边框宽度会随窗口状态变化；把 DSH 最大化再点一次按钮即可重新计算 |
 | 任务栏又出现两个图标 | 归组是在每次打开时施加的；关掉 chat 重开一次 |
 | 按钮不见了 | DSH 侧边栏改版可能让 DOM 挂载点失效；刷新页面，或到「插件」页确认插件是启用状态 |
@@ -137,7 +137,7 @@ powershell -ExecutionPolicy Bypass -File ~\.dsh\plugins\dsh-oneclick-desktop\plu
 ```
 
 `~/.dsh/edge-deepseek-profile/`（chat 用的独立浏览器 profile）和
-`~/.dsh/dsh-chat-panel.{state,log}` 可以手动删掉。
+`~/.dsh/dsh-oneclick-desktop.{state,log}` 可以手动删掉。
 
 ## 实现说明
 

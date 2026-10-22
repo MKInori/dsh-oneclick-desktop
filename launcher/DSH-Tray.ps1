@@ -71,6 +71,7 @@ if (-not $script:GotLock) { exit 0 }
 Add-Type -Namespace Dsh -Name Win -MemberDefinition @'
 [DllImport("user32.dll")] public static extern bool SetForegroundWindow(System.IntPtr h);
 [DllImport("user32.dll")] public static extern bool ShowWindow(System.IntPtr h, int cmd);
+  [DllImport("user32.dll")] public static extern bool IsIconic(System.IntPtr h);
 '@
 
 # ---------------------------------------------------------------- server ---
@@ -126,9 +127,14 @@ function Open-Window {
   # Reuse an existing window instead of opening a second one.
   $w = Get-AppWindow
   if ($w) {
+    $h = $w.MainWindowHandle
     try {
-      [Dsh.Win]::ShowWindow($w.MainWindowHandle, 9) | Out-Null     # SW_RESTORE
-      [Dsh.Win]::SetForegroundWindow($w.MainWindowHandle) | Out-Null
+      # A minimised window has to come back first. SW_RESTORE on its own is
+      # not enough for the visible case -- on a maximised window it RESTORES it
+      # to its normal size, which looked exactly like "open stopped maximising".
+      if ([Dsh.Win]::IsIconic($h)) { [Dsh.Win]::ShowWindow($h, 9) | Out-Null }   # SW_RESTORE
+      [Dsh.Win]::ShowWindow($h, 3) | Out-Null                                    # SW_MAXIMIZE
+      [Dsh.Win]::SetForegroundWindow($h) | Out-Null
       return
     } catch { }
   }

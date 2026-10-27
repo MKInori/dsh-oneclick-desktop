@@ -146,6 +146,21 @@ function Open-Window {
   $psi.Arguments = '--app=' + $script:URL + ' --start-maximized --no-first-run --no-default-browser-check'
   $psi.UseShellExecute = $false
   [void][System.Diagnostics.Process]::Start($psi)
+    # --start-maximized is only a hint: an Edge --app window restores the
+    # geometry the profile remembers and can ignore the flag, which is why a
+    # cold start came up not maximised while reusing a window maximised fine.
+    # Wait for it to appear, then ask explicitly.
+    for ($i = 0; $i -lt 60; $i++) {
+      Start-Sleep -Milliseconds 250
+      $n = Get-AppWindow
+      if ($n) {
+        $nh = $n.MainWindowHandle
+        if ([Dsh.Win]::IsIconic($nh)) { [Dsh.Win]::ShowWindow($nh, 9) | Out-Null }   # SW_RESTORE
+        [Dsh.Win]::ShowWindow($nh, 3) | Out-Null                                    # SW_MAXIMIZE
+        [Dsh.Win]::SetForegroundWindow($nh) | Out-Null
+        break
+      }
+    }
 }
 
 # ------------------------------------------------------------------ tray ---
